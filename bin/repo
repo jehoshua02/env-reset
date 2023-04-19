@@ -1,0 +1,12 @@
+ENV_RESET_PATH="${BASH_SOURCE%/*}/.."
+
+# args
+repo=$1
+command=$2
+
+# execute
+cd $repo
+branch=$(git rev-parse --abbrev-ref HEAD)
+[[ $(git status -s | wc -l | xargs) -gt 0 ]] && changes="true" || changes="false"
+echo "=== repo: $repo | branch: $branch | changes: $changes | command: $command ===" | tee -a $ENV_RESET_PATH/out/repos-out.txt
+eval $command

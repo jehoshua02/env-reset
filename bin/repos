@@ -1,0 +1,13 @@
+ENV_RESET_PATH="${BASH_SOURCE%/*}/.."
+
+out=$ENV_RESET_PATH/out/repos-out.txt
+: > $out
+
+command="$@"
+find . -name .git | xargs dirname | xargs -I {} repo {} "$command"
+
+# summary
+repos_total=$( cat $out | grep -c "===" )
+repos_with_branch=$( cat $out | grep -c -v "branch: main" )
+repos_with_changes=$( cat $out | grep -c "changes: true" )
+echo "=== total: $repos_total | branches: $repos_with_branch | changes: $repos_with_changes ==="

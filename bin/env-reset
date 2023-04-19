@@ -1,0 +1,9 @@
+ENV_RESET_PATH="${BASH_SOURCE%/*}/.."
+source "${ENV_RESET_PATH}/.env"
+cd $REPOS_PATH
+# docker compose down
+# docker system prune -af --volumes
+# repos git checkout main
+# repos git pull
+# $CONFIGURE_CMD
+repos branch-prune
