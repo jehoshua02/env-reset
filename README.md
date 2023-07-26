@@ -10,7 +10,6 @@ Scripts I use to reset my environment, which relies on many repos, docker compos
 PATH=$PATH:/path/to/env-reset/bin
 ```
 3. Copy `.env.example` to `.env` and customize values
-4. Run `env-reset`
 
 ## Configuration
 
@@ -35,6 +34,10 @@ What it does:
 - Pulls all repos under `REPOS_PATH`. 
 - Runs `CONFIGURE_CMD`. 
 - Prunes branches in all repos under `REPOS_PATH`.
+
+After an `env-reset` you then `docker compose up -d <whatever-service-you-want>`, which will pull new images since all of them were pruned, and volume mounts will be fresh, since all repos were updated, and there should be no configuration to do since `CONFIGURE_CMD` was executed.
+
+So in a nutshell, `env-reset` and `docker compose up -d <service>` should have you in a fresh, fully updated, working state every time.
 
 ### `repos`
 
